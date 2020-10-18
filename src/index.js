@@ -40,6 +40,18 @@ const FileIcon = ({ file }) =>{
     };
 
 
+    const FileName =  ({ file }) => {
+      return (
+        <>
+        <FileIcon file={file}/>
+        <td className="file-name">{file.name}</td>
+        </>
+        );
+      }
+      FileName.propTypes = {
+      file: PropTypes.object.isRequired
+      };
+
 const testFiles = [
   {
     id: 1,
