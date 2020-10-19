@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './index.css';
+import Time from './Time';
 
 const FileList = ({ files }) => (
   <table className="file-list">
@@ -19,15 +20,17 @@ const FileList = ({ files }) => (
   const FileListItem = ({ file }) => (
     <tr className="file-list-item">
       <FileName file={file} />
-      <CommitMessage
-      commit={file.latestCommit} />
+      <CommitMessage commit={file.latestCommit} />
+      <td className="age">
+        <Time time={file.updated_at}/>
+      </td>
     </tr>
     );
     FileListItem.propTypes = {
     file: PropTypes.object.isRequired
     };
 
-  const FileName =  ({ file }) => {
+  const FileName = ({ file }) => {
     return (
       <>
       <FileIcon file={file}/>
@@ -64,35 +67,35 @@ const FileList = ({ files }) => (
     };
 
 
-const testFiles = [
-  {
-    id: 1,
-    name: 'src',
-    type: 'folder',
-    updated_at: "2016-07-11 21:24:00",
-    latestCommit: {
-    message: 'Initial commit'
-    }
-  },
-  {
-    id: 2,
-    name: 'tests',
-    type: 'folder',
-    updated_at: "2016-07-11 21:24:00",
-    latestCommit: {
-    message: 'Initial commit'
-    }
-  },
-  {
-      id: 3,
-      name: 'README',
-      type: 'file',
-      updated_at: "2016-07-18 21:24:00",
+  const testFiles = [
+    {
+      id: 1,
+      name: 'src',
+      type: 'folder',
+      updated_at: "2016-07-11 21:24:00",
       latestCommit: {
-      message: 'Added a readme'
+      message: 'Initial commit'
       }
-  },
-]
+    },
+    {
+      id: 2,
+      name: 'tests',
+      type: 'folder',
+      updated_at: "2016-07-11 21:24:00",
+      latestCommit: {
+      message: 'Initial commit'
+      }
+    },
+    {
+        id: 3,
+        name: 'README',
+        type: 'file',
+        updated_at: "2016-07-18 21:24:00",
+        latestCommit: {
+        message: 'Added a readme'
+        }
+    },
+  ]
 
 ReactDOM.render(<FileList files ={testFiles}/>,document.getElementById('root'));
 
