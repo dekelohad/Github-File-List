@@ -7,40 +7,44 @@ import Time from './Time';
 const FileList = ({ files }) => (
   <table className="file-list">
   <tbody>
-    {files.map(file =>
-    <FileListItem key={file.id} file={file}/>
-    )}
+      {files.map(file =>
+      <FileListItem key={file.id} file={file}/>
+      )}
     </tbody>
   </table>
-  );
-  FileList.propTypes = {
-  files: PropTypes.array
-  };
+ );
+FileList.propTypes = {
+files: PropTypes.array
+};
 
-  const FileListItem = ({ file }) => (
+const FileListItem = ({ file }) => (
     <tr className="file-list-item">
-      <FileName file={file} />
-      <CommitMessage commit={file.latestCommit} />
+      <td className="file-icon">
+        <FileIcon file={file}/>
+      </td>
+      <td className="file-name">
+        <FileName file={file}/>
+      </td>
+      <td className="commit-message">
+        <CommitMessage commit={file.latestCommit} />
+      </td>
       <td className="age">
         <Time time={file.updated_at}/>
       </td>
-    </tr>
-    );
-    FileListItem.propTypes = {
-    file: PropTypes.object.isRequired
-    };
+  </tr>
+);
+FileListItem.propTypes = {
+  file: PropTypes.object.isRequired
+};
 
-  const FileName = ({ file }) => {
-    return (
-      <>
-      <FileIcon file={file}/>
-      <td className="file-name">{file.name}</td>
-      </>
+const FileName = ({ file }) => {
+  return (
+      <span>{file.name}</span>
     );
-      }
-    FileName.propTypes = {
+  }
+  FileName.propTypes = {
     file: PropTypes.object.isRequired
-    };
+  };
 
   const FileIcon = ({ file }) =>{
       let icon = 'fa-file-text-o';
@@ -48,25 +52,20 @@ const FileList = ({ files }) => (
           icon = 'fa-folder';
         }
         return (
-            <td className="file-icon">
             <i className={`fa ${icon}`}/>
-            </td>
-        );
+          );
       }
       FileIcon.propTypes = {
       file: PropTypes.object.isRequired
       };
 
   const CommitMessage = ({ commit }) => (
-    <td className="commit-message">
-      {commit.message}
-    </td>
-    );
-    CommitMessage.propTypes = {
+    <span>{commit.message}</span>
+  );
+  CommitMessage.propTypes = {
     commit: PropTypes.object.isRequired
-    };
-
-
+  };
+    
   const testFiles = [
     {
       id: 1,
